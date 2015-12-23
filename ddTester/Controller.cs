@@ -22,10 +22,10 @@ namespace ddTester
             public static int thread = 10;
             public static int runTimes = 500;
             public static int returnProgress = 0 ;
-
+            public static string returnResult = string.Empty;
         }
 
-        public static async void SendHTTP()
+        public static async Task SendHTTP()
         {
             HttpClient client = new HttpClient();
             var response = await client.GetStringAsync("http://www.szkegao.net/feedmail.aspx?txtUserName=" + ctrlVar.name + // Add name and main URL
@@ -35,6 +35,7 @@ namespace ddTester
                 + "&txtContent=" + ctrlVar.comment // Add comment text
                 + "&txtCode=TRMO&btnSubmit=%E5%8F%91%E8%A1%A8%E7%95%99%E8%A8%80"); // I don't know what the hell it is here, but it does work.
             //ReleaseMemory(true);
+            ctrlVar.returnResult += response.ToString();
         }
         
 

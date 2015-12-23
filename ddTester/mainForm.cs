@@ -41,6 +41,7 @@ namespace ddTester
 
         private void button1_Click(object sender, EventArgs e)
         {
+            startButton.Enabled = false;
             Int32.TryParse(threadTextbox.Text, out Controller.ctrlVar.thread);
             Int32.TryParse(runCrTextbox.Text, out Controller.ctrlVar.runTimes);
             Controller.ctrlVar.name = HttpUtility.UrlEncode(nameTextbox.Text);
@@ -52,14 +53,12 @@ namespace ddTester
 
             RunParallel(Controller.ctrlVar.thread, Controller.ctrlVar.runTimes);
             Controller.ReleaseMemory(false);
-
-
-
+          
         }
 
         private void mainForm_Load(object sender, EventArgs e)
         {
-
+            MessageBox.Show("THIS TOOL IS FOR TESTING THE BUGS ONLY, NOT FOR HACKING! \r\nI AM SERIOUS!! NOT FOR HACKING!!", "WARNING");
         }
 
 
@@ -67,15 +66,19 @@ namespace ddTester
 
         public void RunParallel(int thread, int runTimes)
         {
-           
-            Parallel.For(0, runTimes, new ParallelOptions { MaxDegreeOfParallelism = thread }, index =>
+            ParallelLoopResult result = Parallel.For(0, runTimes, new ParallelOptions { MaxDegreeOfParallelism = thread }, index =>
             {
-                Controller.SendHTTP();
-                Controller.ReleaseMemory(true);
-
+                var task = Task.Run(async () => { await Controller.SendHTTP(); });
+                task.Wait();
+                Controller.ReleaseMemory(true); // Fix memory leak
             });
-            MessageBox.Show("Done, now may still running, please use Fiddler to monitor it.");
-            startButton.Enabled = true;
+         //   MessageBox.Show("Done, now may still running, please use Fiddler to monitor it.");
+
+            if(result.IsCompleted)
+            {
+                startButton.Enabled = true;
+                MessageBox.Show("Done, please check your server and/or your packet tracing tool.");
+            }
         }
 
 

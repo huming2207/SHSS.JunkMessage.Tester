@@ -45,6 +45,7 @@
             this.phoneTextbox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.resultLabel = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // startButton
@@ -204,11 +205,21 @@
             this.resultLabel.TabIndex = 18;
             this.resultLabel.Text = "Standby";
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(1012, 49);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.richTextBox1.Size = new System.Drawing.Size(697, 907);
+            this.richTextBox1.TabIndex = 19;
+            this.richTextBox1.Text = "";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1047, 969);
+            this.ClientSize = new System.Drawing.Size(1724, 969);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.resultLabel);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -253,6 +264,7 @@
         private System.Windows.Forms.TextBox phoneTextbox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label resultLabel;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 
