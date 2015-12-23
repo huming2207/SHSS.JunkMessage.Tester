@@ -4,4 +4,4 @@
 
 Now this project is still encrypted for BOTH RMIT University teachers and SHSS IT Managers to evaluate. 
 
-After the IT managers finishes their works, I will publish the source code.
+**Anyway, do not use it for illegal purpose. Just for testing. This is completely NOT a hacking tool.**
