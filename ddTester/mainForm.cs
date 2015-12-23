@@ -48,7 +48,7 @@ namespace ddTester
             Controller.ctrlVar.email = HttpUtility.UrlEncode(emailTextbox.Text);
             Controller.ctrlVar.title = HttpUtility.UrlEncode(titleTextbox.Text);
             Controller.ctrlVar.comment = HttpUtility.UrlEncode(commentTextbox.Text);
-            MessageBox.Show("Now running \r\n Do not press this button again.", "Warning: JUST FOR SHSS's TESTING ONLY");
+            MessageBox.Show("Now running \r\n Do not press this button again.");
 
             RunParallel(Controller.ctrlVar.thread, Controller.ctrlVar.runTimes);
             Controller.ReleaseMemory(false);
@@ -67,12 +67,11 @@ namespace ddTester
 
         public void RunParallel(int thread, int runTimes)
         {
-            //ParallelOptions options = new ParallelOptions();
-           // options.MaxDegreeOfParallelism = thread;
-            Parallel.For(0, runTimes, index =>
+           
+            Parallel.For(0, runTimes, new ParallelOptions { MaxDegreeOfParallelism = thread }, index =>
             {
                 Controller.SendHTTP();
-              //  Controller.ReleaseMemory(true);
+                Controller.ReleaseMemory(true);
 
             });
             MessageBox.Show("Done, now may still running, please use Fiddler to monitor it.");
