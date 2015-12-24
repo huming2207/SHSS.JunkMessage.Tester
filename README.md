@@ -1,6 +1,6 @@
 # SHSS.JunkMessage.Tester
 
-# By Jackson Ming Hu @ RMIT University, Melbourne, Australia.
+By Jackson Ming Hu @ RMIT University, Melbourne, Australia.
 
 # For testing only, NOT FOR HACKING, I AM SERIOUS!!
 
