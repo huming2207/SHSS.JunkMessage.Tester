@@ -23,19 +23,25 @@ namespace ddTester
             public static int runTimes = 500;
             public static int returnProgress = 0 ;
             public static string returnResult = string.Empty;
+            public static bool noResult = false;
         }
 
-        public static async Task SendHTTP()
+        public static  async Task SendHTTP()
         {
             HttpClient client = new HttpClient();
-            var response = await client.GetStringAsync("http://www.szkegao.net/feedmail.aspx?txtUserName=" + ctrlVar.name + // Add name and main URL
+            var response = await client.GetAsync("http://www.szkegao.net/feedmail.aspx?txtUserName=" + ctrlVar.name + // Add name and main URL
                 "&txtUserTel=" + ctrlVar.phone + // Add phone text
                 "&txtUserEmail=" + ctrlVar.email  // Add Email text
                 + "&txtTitle=" + ctrlVar.title  // Add title text
                 + "&txtContent=" + ctrlVar.comment // Add comment text
                 + "&txtCode=TRMO&btnSubmit=%E5%8F%91%E8%A1%A8%E7%95%99%E8%A8%80"); // I don't know what the hell it is here, but it does work.
             //ReleaseMemory(true);
-            ctrlVar.returnResult += response.ToString();
+            
+           if(ctrlVar.noResult == false)
+           {
+               ctrlVar.returnResult += response.ToString() + "\r\n";
+           }
+           
         }
         
 

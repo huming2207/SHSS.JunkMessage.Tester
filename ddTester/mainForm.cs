@@ -1,8 +1,10 @@
 ﻿/*
-     Junk message DDoS bug testing tool for Shenzhen High School of Science
+     Junk message DDoS bug testing tool for Shenzhen High School of Science (SHSS), see: http://www.szkegao.net
 
      By Jackson Ming Hu in RMIT University, Melbourne, Australia
      December 20, 2015   huming2207@gmail.com
+
+     This is also a chance for me to learn the asynchronous and synchronous stuff in C#. :)
 
      Warning: This tool is written for IT Management Department in SHSS only.
               I will obviously NOT publish its binary files and/or source code, 
@@ -20,6 +22,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Web;
+using System.Reflection;
 
 
 namespace ddTester
@@ -34,7 +37,7 @@ namespace ddTester
             Control.CheckForIllegalCrossThreadCalls = false; 
         }
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        private void resultTextbox_TextChanged(object sender, EventArgs e)
         {
             
         }
@@ -49,7 +52,9 @@ namespace ddTester
             Controller.ctrlVar.email = HttpUtility.UrlEncode(emailTextbox.Text);
             Controller.ctrlVar.title = HttpUtility.UrlEncode(titleTextbox.Text);
             Controller.ctrlVar.comment = HttpUtility.UrlEncode(commentTextbox.Text);
+            Controller.ctrlVar.noResult = checkBox1.Checked;
             MessageBox.Show("Now running \r\n Do not press this button again.");
+            resultLabel.Text = "Now running...";
 
             RunParallel(Controller.ctrlVar.thread, Controller.ctrlVar.runTimes);
             Controller.ReleaseMemory(false);
@@ -59,6 +64,9 @@ namespace ddTester
         private void mainForm_Load(object sender, EventArgs e)
         {
             MessageBox.Show("THIS TOOL IS FOR TESTING THE BUGS ONLY, NOT FOR HACKING! \r\nI AM SERIOUS!! NOT FOR HACKING!!", "WARNING");
+            resultTextbox.AppendText("\r\n=============================================\r\n" +
+                "Version: " + Assembly.GetEntryAssembly().GetName().Version.ToString() + "\r\n" +
+                "Architecture: " + Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE").ToString() + "\r\n");
         }
 
 
@@ -68,16 +76,23 @@ namespace ddTester
         {
             ParallelLoopResult result = Parallel.For(0, runTimes, new ParallelOptions { MaxDegreeOfParallelism = thread }, index =>
             {
-                var task = Task.Run(async () => { await Controller.SendHTTP(); });
+                // See: http://stackoverflow.com/questions/14485115/synchronously-waiting-for-an-async-operation-and-why-does-wait-freeze-the-pro
+                // This is a solution for making the async stuff to be "sync" correctly.
+                var task = Task.Run(async () => { await Controller.SendHTTP(); }); 
                 task.Wait();
-                Controller.ReleaseMemory(true); // Fix memory leak
-            });
-         //   MessageBox.Show("Done, now may still running, please use Fiddler to monitor it.");
 
-            if(result.IsCompleted)
+                if (Controller.ctrlVar.noResult == false)
+                {
+                    resultTextbox.Text = Controller.ctrlVar.returnResult;
+                }
+            });
+            // Fix memory leak (TODO: Seems not necessary? I don't know, need to be re-considered later.)
+            Controller.ReleaseMemory(true);
+            if (result.IsCompleted)
             {
                 startButton.Enabled = true;
                 MessageBox.Show("Done, please check your server and/or your packet tracing tool.");
+                resultLabel.Text = "Done!";
             }
         }
 

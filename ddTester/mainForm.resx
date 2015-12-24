@@ -117,4 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="resultTextbox.Text" xml:space="preserve">
+    <value>This is the HTTP result text box. 
+The HTTP request results will be shown here.
+=============================================
+Junk message DDoS bug testing tool for Shenzhen High School of Science (SHSS), see: http://www.szkegao.net
+
+By Jackson Ming Hu in RMIT University, Melbourne, Australia.
+December 20, 2015   huming2207@gmail.com
+
+This is also a chance for me to learn the asynchronous and synchronous stuff in C#. :)
+
+Warning: 
+This tool is written for IT Management Department in SHSS only.
+
+</value>
+  </data>
 </root>

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.startButton = new System.Windows.Forms.Button();
             this.nameTextbox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,7 +46,8 @@
             this.phoneTextbox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.resultLabel = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.resultTextbox = new System.Windows.Forms.RichTextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // startButton
@@ -205,21 +207,32 @@
             this.resultLabel.TabIndex = 18;
             this.resultLabel.Text = "Standby";
             // 
-            // richTextBox1
+            // resultTextbox
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(1012, 49);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.richTextBox1.Size = new System.Drawing.Size(697, 907);
-            this.richTextBox1.TabIndex = 19;
-            this.richTextBox1.Text = "";
+            this.resultTextbox.Location = new System.Drawing.Point(1012, 49);
+            this.resultTextbox.Name = "resultTextbox";
+            this.resultTextbox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.resultTextbox.Size = new System.Drawing.Size(697, 907);
+            this.resultTextbox.TabIndex = 19;
+            this.resultTextbox.Text = resources.GetString("resultTextbox.Text");
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(332, 736);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(473, 29);
+            this.checkBox1.TabIndex = 20;
+            this.checkBox1.Text = "Faster (No result shown in the result textbox)";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1724, 969);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.resultTextbox);
             this.Controls.Add(this.resultLabel);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -238,7 +251,7 @@
             this.Controls.Add(this.nameTextbox);
             this.Controls.Add(this.startButton);
             this.Name = "mainForm";
-            this.Text = "SHSS Junk message DDoS bug tester - For testing only";
+            this.Text = "SHSS Junk message DDoS bug tester - For testing only, NON-THREADSAFE";
             this.Load += new System.EventHandler(this.mainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -264,7 +277,8 @@
         private System.Windows.Forms.TextBox phoneTextbox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label resultLabel;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox resultTextbox;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
